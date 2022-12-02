@@ -1,0 +1,33 @@
+{
+	"name": "piggly/php-omie-api",
+	"description": "Library to integrate with Omie ERP Api.",
+	"type": "library",
+	"license": "MIT",
+	"homepage": "https://github.com/piggly-dev/php-omie-api",
+	"autoload": {
+		"psr-4": {
+			"Pgly\\Omie\\Api\\": "src/"
+		}
+	},
+	"authors": [
+		{
+			"name": "Caique Araujo",
+			"email": "caique@studiopiggly.com.br",
+			"homepage": "https://github.com/caiquearaujo",
+			"role": "Developer"
+		},
+		{
+			"name": "Piggly Lab",
+			"email": "dev@piggly.com.br",
+			"homepage": "https://github.com/piggly-lab",
+			"role": "Developer"
+		}
+	],
+	"require": {
+		"php": "^7.2 || ^8.0",
+		"piggly/php-api-client": "1.1.0",
+		"monolog/monolog": "^2.3"
+	},
+	"minimum-stability": "stable",
+	"version": "0.1.0"
+}
