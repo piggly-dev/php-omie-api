@@ -2,6 +2,8 @@
 
 namespace Pgly\Omie\Api\Utils;
 
+use DateTimeImmutable;
+
 /**
  * Format any value to another.
  *
@@ -63,5 +65,34 @@ class Formatter
 	public static function phone($phone): string
 	{
 		return preg_replace("/(\d{2})(\d{5})(\d{4})/", "(\$1) \$2-\$3", Cast::digit($phone));
+	}
+
+	/**
+	 * Take a date string and create a DateTimeImutable object.
+	 *
+	 * @param mixed $date
+	 * @since 0.1.0
+	 * @return DateTimeImmutable
+	 * @todo Timezone
+	 */
+	public static function date($date): DateTimeImmutable
+	{
+		if ($date instanceof DateTimeImmutable) {
+			return $date;
+		}
+
+		return new DateTimeImmutable($date);
+	}
+
+	/**
+	 * Create a DateTimeImutable object from now.
+	 *
+	 * @since 0.1.0
+	 * @return DateTimeImmutable
+	 * @todo Timezone
+	 */
+	public static function now(): DateTimeImmutable
+	{
+		return new DateTimeImmutable();
 	}
 }
