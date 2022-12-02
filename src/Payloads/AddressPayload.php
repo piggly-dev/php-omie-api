@@ -1,0 +1,266 @@
+<?php
+
+namespace Pgly\Omie\Api\Payloads;
+
+use InvalidArgumentException;
+use Pgly\Omie\Api\Utils\Cast;
+use Pgly\Omie\Api\Utils\Formatter;
+use Piggly\ApiClient\Payloads\AbstractPayload;
+use Piggly\ApiClient\Payloads\Rules\MaxLengthRule;
+use Piggly\ApiClient\Payloads\Rules\Optional;
+use Piggly\ApiClient\Payloads\Rules\Required;
+use Piggly\ApiClient\Payloads\Rules\StringRule;
+
+/**
+ * Address payload structure with required fields as
+ * cep and optional fields as endereco, endereco_numero,
+ * complemento, bairro, estado and cidade.
+ *
+ * @package Pgly\Omie\Api
+ * @subpackage Pgly\Omie\Api\Payloads
+ * @version 0.1.0
+ * @since 0.1.0
+ * @category Payloads
+ * @author Caique Araujo <caique@piggly.com.br>
+ * @author Piggly Lab <dev@piggly.com.br>
+ * @license MIT
+ * @copyright 2022 Piggly Lab <dev@piggly.com.br>
+ */
+class AddressPayload extends AbstractPayload
+{
+	/**
+	 * All payload fields.
+	 *
+	 * @var array
+	 * @since 0.1.0
+	 */
+	protected $_fields = [
+		'endereco' => null,
+		'endereco_numero' => null,
+		'complemento' => null,
+		'bairro' => null,
+		'estado' => null,
+		'cidade' => null,
+		'cep' => null,
+		'codigo_pais' => '1058',
+		'pesquisar_cep' => 'S'
+	];
+
+	/**
+	 * Construct object with required fields.
+	 *
+	 * @param string $cep
+	 * @since 0.1.0
+	 * @return void
+	 */
+	public function __construct(
+		string $cep
+	) {
+		$this
+			->changeCep($cep);
+	}
+
+	/**
+	 * Change endereco field.
+	 *
+	 * @param mixed $endereco
+	 * @since 0.1.0
+	 * @return self
+	 */
+	public function changeEndereco($endereco)
+	{
+		$this->_fields['endereco'] = Cast::upper($endereco);
+		return $this;
+	}
+
+	/**
+	 * Change endereco_numero field.
+	 *
+	 * @param mixed $endereco_numero
+	 * @since 0.1.0
+	 * @return self
+	 */
+	public function changeNumero($endereco_numero)
+	{
+		$this->_fields['endereco_numero'] = Cast::upper($endereco_numero);
+		return $this;
+	}
+
+	/**
+	 * Change complemento field.
+	 *
+	 * @param mixed $complemento
+	 * @since 0.1.0
+	 * @return self
+	 */
+	public function changeComplemento($complemento)
+	{
+		$this->_fields['complemento'] = Cast::upper($complemento);
+		return $this;
+	}
+
+	/**
+	 * Change bairro field.
+	 *
+	 * @param mixed $bairro
+	 * @since 0.1.0
+	 * @return self
+	 */
+	public function changeBairro($bairro)
+	{
+		$this->_fields['bairro'] = Cast::upper($bairro);
+		return $this;
+	}
+
+	/**
+	 * Change estado field.
+	 *
+	 * @param mixed $estado
+	 * @since 0.1.0
+	 * @return self
+	 */
+	public function changeEstado($estado)
+	{
+		$this->_fields['estado'] = Cast::upper($estado);
+		return $this;
+	}
+
+	/**
+	 * Change cidade field.
+	 *
+	 * @param mixed $cidade
+	 * @since 0.1.0
+	 * @return self
+	 */
+	public function changeCidade($cidade)
+	{
+		$this->_fields['cidade'] = Cast::upper($cidade);
+		return $this;
+	}
+
+	/**
+	 * Change cep field.
+	 *
+	 * @param mixed $cep
+	 * @since 0.1.0
+	 * @return self
+	 */
+	public function changeCep($cep)
+	{
+		$this->_fields['cep'] = Formatter::zipcode($cep);
+		return $this;
+	}
+
+	/**
+	 * Get endereco field.
+	 *
+	 * @since 0.1.0
+	 * @return string|null
+	 */
+	public function getEndereco(): ?string
+	{
+		return $this->_get('endereco');
+	}
+
+	/**
+	 * Get endereco_numero field.
+	 *
+	 * @since 0.1.0
+	 * @return string|null
+	 */
+	public function getNumero(): ?string
+	{
+		return $this->_get('endereco_numero');
+	}
+
+	/**
+	 * Get complemento field.
+	 *
+	 * @since 0.1.0
+	 * @return string|null
+	 */
+	public function getComplemento(): ?string
+	{
+		return $this->_get('complemento');
+	}
+
+	/**
+	 * Get bairro field.
+	 *
+	 * @since 0.1.0
+	 * @return string|null
+	 */
+	public function getBairro(): ?string
+	{
+		return $this->_get('bairro');
+	}
+
+	/**
+	 * Get estado field.
+	 *
+	 * @since 0.1.0
+	 * @return string|null
+	 */
+	public function getEstado(): ?string
+	{
+		return $this->_get('estado');
+	}
+
+	/**
+	 * Get cidade field.
+	 *
+	 * @since 0.1.0
+	 * @return string|null
+	 */
+	public function getCidade(): ?string
+	{
+		return $this->_get('cidade');
+	}
+
+	/**
+	 * Get cep field.
+	 *
+	 * @since 0.1.0
+	 * @return string
+	 */
+	public function getCep(): string
+	{
+		return $this->_get('cep');
+	}
+
+	/**
+	 * Import and return the object.
+	 *
+	 * @param array $body
+	 * @since 0.1.0
+	 * @return self
+	 */
+	public static function import(array $body = [])
+	{
+		if (!isset($body['cep'])) {
+			throw new InvalidArgumentException('`cep` fields are required.');
+		}
+
+		$p = new AddressPayload($body['cep']);
+		return $p;
+	}
+
+	/**
+	 * Get payload schema.
+	 *
+	 * @since 0.1.0
+	 * @return array<array<RuleInterface>>
+	 */
+	protected static function schema(): array
+	{
+		return [
+			'endereco' => [new Optional([ new StringRule(), new MaxLengthRule(60) ])],
+			'endereco_numero' => [new Optional([ new StringRule(), new MaxLengthRule(10) ])],
+			'bairro' => [new Optional([ new StringRule(), new MaxLengthRule(60) ])],
+			'complemento' => [new Optional([ new StringRule(), new MaxLengthRule(60) ])],
+			'estado' => [new Optional([ new StringRule(), new MaxLengthRule(2) ])],
+			'cidade' => [new Optional([ new StringRule(), new MaxLengthRule(40) ])],
+			'cep' => [new Required([ new StringRule(), new MaxLengthRule(10) ])],
+		];
+	}
+}

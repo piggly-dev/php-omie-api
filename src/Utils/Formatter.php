@@ -30,6 +30,18 @@ class Formatter
 	}
 
 	/**
+	 * Take a CNPJ string and format it as 00.000.000/0000-00.
+	 *
+	 * @package mixed $cnpj
+	 * @since 0.1.0
+	 * @return string
+	 */
+	public static function cnpj($cnpj): string
+	{
+		return \preg_replace('/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/', '$1.$2.$3/$4-$5', Cast::digit($cnpj));
+	}
+
+	/**
 	 * Take a zip code string and format it as 00000-000.
 	 *
 	 * @param mixed $zipcode
