@@ -75,6 +75,24 @@ class TagCollectionPayload extends AbstractPayload
 	}
 
 	/**
+	 * Import and return the object.
+	 *
+	 * @param array $body
+	 * @since 0.1.0
+	 * @return self
+	 */
+	public static function import(array $body = [])
+	{
+		$p = new TagCollectionPayload();
+
+		$p->_fields['tags'] = \array_map(function ($tag) {
+			return TagPayload::import($tag);
+		}, $body['tags'] ?? []);
+
+		return $p;
+	}
+
+	/**
 	 * Get all fields converting payloads
 	 * to an array and removing null values.
 	 *

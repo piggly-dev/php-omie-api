@@ -5,6 +5,7 @@ namespace Pgly\Omie\Api\Payloads;
 use InvalidArgumentException;
 use Pgly\Omie\Api\Rules\CPFOrCNPJRule;
 use Pgly\Omie\Api\Utils\Cast;
+use Pgly\Omie\Api\Utils\Formatter;
 use Piggly\ApiClient\Payloads\AbstractPayload;
 use Piggly\ApiClient\Payloads\Rules\MaxLengthRule;
 use Piggly\ApiClient\Payloads\Rules\Optional;
@@ -201,7 +202,7 @@ class ClientPayload extends AbstractPayload
 	 */
 	public function changeDocument($cnpj_cpf)
 	{
-		$this->_fields['cnpj_cpf'] = \strval($cnpj_cpf);
+		$this->_fields['cnpj_cpf'] = Formatter::cpfOrCnpj($cnpj_cpf);
 		return $this;
 	}
 
@@ -356,6 +357,31 @@ class ClientPayload extends AbstractPayload
 		}
 
 		$p = new ClientPayload($body['razao_social'], $body['nome_fantasia'], $body['cnpj_cpf'], $body['email']);
+
+		if (isset($body['contato'])) {
+			$p->changeContactName($body['contato']);
+		}
+
+		if (isset($body['codigo_cliente_integracao'])) {
+			$p->changeIntegrationCode($body['codigo_cliente_integracao']);
+		}
+
+		if (isset($body['codigo_cliente_omie'])) {
+			$p->changeOmieCode($body['codigo_cliente_omie']);
+		}
+
+		if (isset($body['endereco'])) {
+			$p->_address = AddressPayload::import($body);
+		}
+
+		if (isset($body['caracteristicas'])) {
+			$p->_characteristics = CharacteristicCollectionPayload::import($body);
+		}
+
+		if (isset($body['tags'])) {
+			$p->_tags = TagCollectionPayload::import($body);
+		}
+
 		return $p;
 	}
 

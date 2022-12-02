@@ -75,6 +75,24 @@ class CharacteristicCollectionPayload extends AbstractPayload
 	}
 
 	/**
+	 * Import and return the object.
+	 *
+	 * @param array $body
+	 * @since 0.1.0
+	 * @return self
+	 */
+	public static function import(array $body = [])
+	{
+		$p = new CharacteristicCollectionPayload();
+
+		$p->_fields['caracteristicas'] = \array_map(function ($c) {
+			return CharacteristicPayload::import($c);
+		}, $body['caracteristicas'] ?? []);
+
+		return $p;
+	}
+
+	/**
 	 * Get all fields converting payloads
 	 * to an array and removing null values.
 	 *

@@ -3,6 +3,7 @@
 namespace Pgly\Omie\Api\Utils;
 
 use DateTimeImmutable;
+use InvalidArgumentException;
 use Piggly\ApiClient\Payloads\AbstractPayload;
 
 /**
@@ -20,6 +21,27 @@ use Piggly\ApiClient\Payloads\AbstractPayload;
  */
 class Formatter
 {
+	/**
+	 * Take a CPF or CNPJ string and format it.
+	 *
+	 * @param mixed $cpfOrCnpj
+	 * @since 0.1.0
+	 * @return string
+	 * @throws InvalidArgumentException
+	 */
+	public static function cpfOrCnpj($cpfOrCnpj): string
+	{
+		if (strlen($cpfOrCnpj) <= 11) {
+			return self::cpf($cpfOrCnpj);
+		}
+
+		if (strlen($cpfOrCnpj <= 14)) {
+			return self::cnpj($cpfOrCnpj);
+		}
+
+		throw new InvalidArgumentException('Invalid CPF or CNPJ');
+	}
+
 	/**
 	 * Take a CPF string and format it as 000.000.000-00.
 	 *
@@ -102,18 +124,18 @@ class Formatter
 	 *
 	 * @param ApplicationModel $app
 	 * @param string $method
-	 * @param AbstractPayload $body
+	 * @param AbstractPayload|array $body
 	 * @since 0.1.0
 	 * @return array
 	 */
-	public static function requestBody($app, string $method, AbstractPayload $body): array
+	public static function requestBody($app, string $method, $body): array
 	{
 		return [
 			'call' => $method,
 			'app_key' => $app->get('client_id'),
 			'app_secret' => $app->get('client_secret'),
 			'param' => [
-				$body->toArray()
+				\is_array($body) ? $body : $body->toArray()
 			]
 		];
 	}

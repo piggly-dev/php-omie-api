@@ -95,6 +95,7 @@ class CharacteristicPayload extends AbstractPayload
 		$this->_fields['conteudo'] = Cast::cut($conteudo, 60);
 		return $this;
 	}
+
 	/**
 	 * Import and return the object.
 	 *

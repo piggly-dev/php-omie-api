@@ -242,6 +242,31 @@ class AddressPayload extends AbstractPayload
 		}
 
 		$p = new AddressPayload($body['cep']);
+
+		if (isset($body['endereco'])) {
+			$p->changeStreet($body['endereco']);
+		}
+
+		if (isset($body['endereco_numero'])) {
+			$p->changeNumber($body['endereco_numero']);
+		}
+
+		if (isset($body['complemento'])) {
+			$p->changeComplement($body['complemento']);
+		}
+
+		if (isset($body['bairro'])) {
+			$p->changeNeighborhood($body['bairro']);
+		}
+
+		if (isset($body['estado'])) {
+			$p->changeState($body['estado']);
+		}
+
+		if (isset($body['cidade'])) {
+			$p->changeCity($body['cidade']);
+		}
+
 		return $p;
 	}
 
