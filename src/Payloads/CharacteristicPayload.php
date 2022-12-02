@@ -45,41 +45,40 @@ class CharacteristicPayload extends AbstractPayload
 	 */
 	public function __construct(string $campo, string $conteudo)
 	{
-		$this->changeCampo($campo);
-		$this->changeConteudo($conteudo);
+		$this->changeFieldName($campo)->changeContent($conteudo);
 	}
 
 	/**
-	 * Get campo.
+	 * Get field name.
 	 *
 	 * @since 0.1.0
 	 * @return string
 	 */
-	public function campo(): string
+	public function fieldName(): string
 	{
 		return $this->_get('campo');
 	}
 
 	/**
-	 * Change campo field.
+	 * Change field name.
 	 *
 	 * @param mixed $campo
 	 * @since 0.1.0
 	 * @return self
 	 */
-	public function changeCampo($campo)
+	public function changeFieldName($campo)
 	{
 		$this->_fields['campo'] = Cast::cut($campo, 30);
 		return $this;
 	}
 
 	/**
-	 * Get conteudo.
+	 * Get content.
 	 *
 	 * @since 0.1.0
 	 * @return string
 	 */
-	public function conteudo(): string
+	public function content(): string
 	{
 		return $this->_get('conteudo');
 	}
@@ -91,7 +90,7 @@ class CharacteristicPayload extends AbstractPayload
 	 * @since 0.1.0
 	 * @return self
 	 */
-	public function changeConteudo($conteudo)
+	public function changeContent($conteudo)
 	{
 		$this->_fields['conteudo'] = Cast::cut($conteudo, 60);
 		return $this;

@@ -57,7 +57,7 @@ class AddressPayload extends AbstractPayload
 		string $cep
 	) {
 		$this
-			->changeCep($cep);
+			->changeZipcode($cep);
 	}
 
 	/**
@@ -67,7 +67,7 @@ class AddressPayload extends AbstractPayload
 	 * @since 0.1.0
 	 * @return self
 	 */
-	public function changeEndereco($endereco)
+	public function changeStreet($endereco)
 	{
 		$this->_fields['endereco'] = Cast::upper($endereco);
 		return $this;
@@ -80,7 +80,7 @@ class AddressPayload extends AbstractPayload
 	 * @since 0.1.0
 	 * @return self
 	 */
-	public function changeNumero($endereco_numero)
+	public function changeNumber($endereco_numero)
 	{
 		$this->_fields['endereco_numero'] = Cast::upper($endereco_numero);
 		return $this;
@@ -93,7 +93,7 @@ class AddressPayload extends AbstractPayload
 	 * @since 0.1.0
 	 * @return self
 	 */
-	public function changeComplemento($complemento)
+	public function changeComplement($complemento)
 	{
 		$this->_fields['complemento'] = Cast::upper($complemento);
 		return $this;
@@ -106,7 +106,7 @@ class AddressPayload extends AbstractPayload
 	 * @since 0.1.0
 	 * @return self
 	 */
-	public function changeBairro($bairro)
+	public function changeNeighborhood($bairro)
 	{
 		$this->_fields['bairro'] = Cast::upper($bairro);
 		return $this;
@@ -119,7 +119,7 @@ class AddressPayload extends AbstractPayload
 	 * @since 0.1.0
 	 * @return self
 	 */
-	public function changeEstado($estado)
+	public function changeState($estado)
 	{
 		$this->_fields['estado'] = Cast::upper($estado);
 		return $this;
@@ -132,7 +132,7 @@ class AddressPayload extends AbstractPayload
 	 * @since 0.1.0
 	 * @return self
 	 */
-	public function changeCidade($cidade)
+	public function changeCity($cidade)
 	{
 		$this->_fields['cidade'] = Cast::upper($cidade);
 		return $this;
@@ -145,7 +145,7 @@ class AddressPayload extends AbstractPayload
 	 * @since 0.1.0
 	 * @return self
 	 */
-	public function changeCep($cep)
+	public function changeZipcode($cep)
 	{
 		$this->_fields['cep'] = Formatter::zipcode($cep);
 		return $this;
@@ -157,7 +157,7 @@ class AddressPayload extends AbstractPayload
 	 * @since 0.1.0
 	 * @return string|null
 	 */
-	public function getEndereco(): ?string
+	public function street(): ?string
 	{
 		return $this->_get('endereco');
 	}
@@ -168,7 +168,7 @@ class AddressPayload extends AbstractPayload
 	 * @since 0.1.0
 	 * @return string|null
 	 */
-	public function getNumero(): ?string
+	public function number(): ?string
 	{
 		return $this->_get('endereco_numero');
 	}
@@ -179,7 +179,7 @@ class AddressPayload extends AbstractPayload
 	 * @since 0.1.0
 	 * @return string|null
 	 */
-	public function getComplemento(): ?string
+	public function complement(): ?string
 	{
 		return $this->_get('complemento');
 	}
@@ -190,7 +190,7 @@ class AddressPayload extends AbstractPayload
 	 * @since 0.1.0
 	 * @return string|null
 	 */
-	public function getBairro(): ?string
+	public function neighborhood(): ?string
 	{
 		return $this->_get('bairro');
 	}
@@ -201,7 +201,7 @@ class AddressPayload extends AbstractPayload
 	 * @since 0.1.0
 	 * @return string|null
 	 */
-	public function getEstado(): ?string
+	public function state(): ?string
 	{
 		return $this->_get('estado');
 	}
@@ -212,7 +212,7 @@ class AddressPayload extends AbstractPayload
 	 * @since 0.1.0
 	 * @return string|null
 	 */
-	public function getCidade(): ?string
+	public function city(): ?string
 	{
 		return $this->_get('cidade');
 	}
@@ -223,7 +223,7 @@ class AddressPayload extends AbstractPayload
 	 * @since 0.1.0
 	 * @return string
 	 */
-	public function getCep(): string
+	public function zipcode(): string
 	{
 		return $this->_get('cep');
 	}

@@ -35,6 +35,7 @@ class ClientPayload extends AbstractPayload
 	 * @since 0.1.0
 	 */
 	protected $_fields = [
+		'codigo_cliente_omie' => null,
 		'codigo_cliente_integracao' => null,
 		'razao_social' => null,
 		'nome_fantasia' => null,
@@ -84,9 +85,9 @@ class ClientPayload extends AbstractPayload
 		$email
 	) {
 		$this
-			->changeRazaoSocial($razao_social)
-			->changeNomeFantasia($nome_fantasia)
-			->changeCnpjCpf($cnpj_cpf)
+			->changeName($razao_social)
+			->changeNickname($nome_fantasia)
+			->changeDocument($cnpj_cpf)
 			->changeEmail($email);
 
 		$this->_tags = new TagCollectionPayload();
@@ -100,7 +101,7 @@ class ClientPayload extends AbstractPayload
 	 * @since 0.1.0
 	 * @return self
 	 */
-	public function changeEndereco(AddressPayload $endereco)
+	public function changeAddress(AddressPayload $endereco)
 	{
 		$this->_address = $endereco;
 		return $this;
@@ -113,9 +114,22 @@ class ClientPayload extends AbstractPayload
 	 * @since 0.1.0
 	 * @return self
 	 */
-	public function changeCodigoIntegracao($codigo_cliente_integracao)
+	public function changeIntegrationCode($codigo_cliente_integracao)
 	{
 		$this->_fields['codigo_cliente_integracao'] = \strval($codigo_cliente_integracao);
+		return $this;
+	}
+
+	/**
+	 * Change codigo_cliente_omie field.
+	 *
+	 * @param mixed $codigo_cliente_omie
+	 * @since 0.1.0
+	 * @return self
+	 */
+	public function changeOmieCode($codigo_cliente_omie)
+	{
+		$this->_fields['codigo_cliente_omie'] = \intval($codigo_cliente_omie);
 		return $this;
 	}
 
@@ -129,7 +143,7 @@ class ClientPayload extends AbstractPayload
 	 * @since 0.1.0
 	 * @return self
 	 */
-	public function changeRazaoSocial($razao_social)
+	public function changeName($razao_social)
 	{
 		$this->_fields['razao_social'] = Cast::upper($razao_social);
 		return $this;
@@ -145,7 +159,7 @@ class ClientPayload extends AbstractPayload
 	 * @since 0.1.0
 	 * @return self
 	 */
-	public function changeNomeFantasia($nome_fantasia)
+	public function changeNickname($nome_fantasia)
 	{
 		$this->_fields['nome_fantasia'] = Cast::upper($nome_fantasia);
 		return $this;
@@ -159,7 +173,7 @@ class ClientPayload extends AbstractPayload
 	 * @since 0.1.0
 	 * @return self
 	 */
-	public function changeContato($contato)
+	public function changeContactName($contato)
 	{
 		$this->_fields['contato'] = Cast::upper($contato);
 		return $this;
@@ -185,7 +199,7 @@ class ClientPayload extends AbstractPayload
 	 * @since 0.1.0
 	 * @return self
 	 */
-	public function changeCnpjCpf($cnpj_cpf)
+	public function changeDocument($cnpj_cpf)
 	{
 		$this->_fields['cnpj_cpf'] = \strval($cnpj_cpf);
 		return $this;
@@ -197,7 +211,7 @@ class ClientPayload extends AbstractPayload
 	 * @since 0.1.0
 	 * @return string
 	 */
-	public function razao_social(): string
+	public function name(): string
 	{
 		return $this->_get('razao_social', '');
 	}
@@ -208,7 +222,7 @@ class ClientPayload extends AbstractPayload
 	 * @since 0.1.0
 	 * @return string
 	 */
-	public function nome_fantasia(): string
+	public function nickname(): string
 	{
 		return $this->_get('nome_fantasia', '');
 	}
@@ -219,7 +233,7 @@ class ClientPayload extends AbstractPayload
 	 * @since 0.1.0
 	 * @return string|null
 	 */
-	public function contato(): ?string
+	public function contactName(): ?string
 	{
 		return $this->_get('contato', '');
 	}
@@ -241,7 +255,7 @@ class ClientPayload extends AbstractPayload
 	 * @since 0.1.0
 	 * @return string
 	 */
-	public function cnpj_cpf(): string
+	public function document(): string
 	{
 		return $this->_get('cnpj_cpf', '');
 	}
@@ -252,10 +266,22 @@ class ClientPayload extends AbstractPayload
 	 * @since 0.1.0
 	 * @return string|null
 	 */
-	public function codigo_integracao(): ?string
+	public function integrationCode(): ?string
 	{
 		return $this->_get('codigo_cliente_integracao');
 	}
+
+	/**
+	 * Get codigo_cliente_omie field.
+	 *
+	 * @since 0.1.0
+	 * @return integer|null
+	 */
+	public function omieCode(): ?int
+	{
+		return $this->_get('codigo_cliente_omie');
+	}
+
 
 	/**
 	 * Get address payload.
@@ -263,7 +289,7 @@ class ClientPayload extends AbstractPayload
 	 * @since 0.1.0
 	 * @return AddressPayload|null
 	 */
-	public function endereco(): ?AddressPayload
+	public function address(): ?AddressPayload
 	{
 		return $this->_address;
 	}
@@ -285,7 +311,7 @@ class ClientPayload extends AbstractPayload
 	 * @since 0.1.0
 	 * @return CharacteristicCollectionPayload
 	 */
-	public function caracteristicas(): CharacteristicCollectionPayload
+	public function characteristics(): CharacteristicCollectionPayload
 	{
 		return $this->_characteristics;
 	}
@@ -305,7 +331,7 @@ class ClientPayload extends AbstractPayload
 			$array = \array_merge($array, $this->_tags->toArray());
 		}
 
-		if (!empty($this->_characteristics->caracteristicas())) {
+		if (!empty($this->_characteristics->characteristics())) {
 			$array = \array_merge($array, $this->_characteristics->toArray());
 		}
 

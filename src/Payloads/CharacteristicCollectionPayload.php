@@ -31,45 +31,45 @@ class CharacteristicCollectionPayload extends AbstractPayload
 	];
 
 	/**
-	 * Add a new caracteristica.
+	 * Add a new characteristic.
 	 *
-	 * @param CharacteristicPayload $caracteristica
+	 * @param CharacteristicPayload $characteristic
 	 * @since 0.1.0
 	 * @return self
 	 */
-	public function add(CharacteristicPayload $caracteristica)
+	public function add(CharacteristicPayload $characteristic)
 	{
-		$this->_fields['caracteristicas'][] = $caracteristica;
+		$this->_fields['caracteristicas'][] = $characteristic;
 		return $this;
 	}
 
 	/**
-	 * Remove a caracteristica.
+	 * Remove a characteristic.
 	 *
-	 * @param CharacteristicPayload $caracteristica
+	 * @param CharacteristicPayload $characteristic
 	 * @since 0.1.0
 	 * @return self
 	 */
-	public function remove(CharacteristicPayload $caracteristica)
+	public function remove(CharacteristicPayload $characteristic)
 	{
-		$caracteristicas = $this->_fields['caracteristicas'];
-		$index = \array_search($caracteristica, $caracteristicas);
+		$characteristics = $this->_fields['caracteristicas'];
+		$index = \array_search($characteristic, $characteristics);
 
 		if ($index !== false) {
-			unset($caracteristicas[$index]);
+			unset($characteristics[$index]);
 		}
 
-		$this->_fields['caracteristicas'] = $caracteristicas;
+		$this->_fields['caracteristicas'] = $characteristics;
 		return $this;
 	}
 
 	/**
-	 * Get caracteristicas.
+	 * Get characteristics.
 	 *
 	 * @since 0.1.0
 	 * @return array<CharacteristicPayload>
 	 */
-	public function caracteristicas(): array
+	public function characteristics(): array
 	{
 		return $this->_get('caracteristicas');
 	}
@@ -83,14 +83,14 @@ class CharacteristicCollectionPayload extends AbstractPayload
 	 */
 	public function toArray(): array
 	{
-		$caracteristicas = $this->_get('caracteristicas');
+		$characteristics = $this->_get('caracteristicas');
 
-		$caracteristicas = \array_map(function ($caracteristica) {
-			return $caracteristica->toArray();
-		}, $caracteristicas);
+		$characteristics = \array_map(function ($characteristic) {
+			return $characteristic->toArray();
+		}, $characteristics);
 
 		return [
-			'caracteristicas' => $caracteristicas
+			'caracteristicas' => $characteristics
 		];
 	}
 
