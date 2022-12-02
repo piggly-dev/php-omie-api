@@ -3,6 +3,7 @@
 namespace Pgly\Omie\Api\Utils;
 
 use DateTimeImmutable;
+use Piggly\ApiClient\Payloads\AbstractPayload;
 
 /**
  * Format any value to another.
@@ -94,5 +95,26 @@ class Formatter
 	public static function now(): DateTimeImmutable
 	{
 		return new DateTimeImmutable();
+	}
+
+	/**
+	 * Prepare request body.
+	 *
+	 * @param ApplicationModel $app
+	 * @param string $method
+	 * @param AbstractPayload $body
+	 * @since 0.1.0
+	 * @return array
+	 */
+	public static function requestBody($app, string $method, AbstractPayload $body): array
+	{
+		return [
+			'call' => $method,
+			'app_key' => $app->get('client_id'),
+			'app_secret' => $app->get('client_secret'),
+			'param' => [
+				$body->toArray()
+			]
+		];
 	}
 }
