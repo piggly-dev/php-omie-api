@@ -3,19 +3,14 @@
 namespace Pgly\Omie\Api\Payloads;
 
 use InvalidArgumentException;
-use Pgly\Omie\Api\Utils\Cast;
-use Pgly\Omie\Api\Utils\Formatter;
 use Piggly\ApiClient\Payloads\AbstractPayload;
 use Piggly\ApiClient\Payloads\Rules\IntegerRule;
 use Piggly\ApiClient\Payloads\Rules\MaxLengthRule;
 use Piggly\ApiClient\Payloads\Rules\Optional;
-use Piggly\ApiClient\Payloads\Rules\Required;
 use Piggly\ApiClient\Payloads\Rules\StringRule;
 
 /**
- * Address payload structure with required fields as
- * cep and optional fields as endereco, endereco_numero,
- * complemento, bairro, estado and cidade.
+ * City payload.
  *
  * @package Pgly\Omie\Api
  * @subpackage Pgly\Omie\Api\Payloads

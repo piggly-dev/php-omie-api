@@ -39,7 +39,6 @@ class DepartmentPayload extends AbstractPayload
 		'nValorFixo' => 'N',
 	];
 
-
 	/**
 	 * Construct object with required fields.
 	 *
