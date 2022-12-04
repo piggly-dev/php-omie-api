@@ -3,13 +3,10 @@
 namespace Pgly\Omie\Api\Endpoints;
 
 use Exception;
-use InvalidArgumentException;
 use Monolog\Logger;
 use Pgly\Omie\Api\Payloads\CityPayload;
-use Pgly\Omie\Api\Payloads\ClientPayload;
 use Pgly\Omie\Api\Utils\Formatter;
 use Piggly\ApiClient\Endpoint;
-use Piggly\ApiClient\Exceptions\ApiResponseException;
 
 /**
  * City endpoint.
