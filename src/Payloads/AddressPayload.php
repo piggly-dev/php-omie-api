@@ -139,6 +139,22 @@ class AddressPayload extends AbstractPayload
 	}
 
 	/**
+	 * Apply city payload to address.
+	 * It replaces cidade and estado fields.
+	 *
+	 * @param mixed $cidade
+	 * @since 0.1.0
+	 * @return self
+	 */
+	public function applyCity(CityPayload $city)
+	{
+		$this->_fields['cidade'] = $city->code();
+		$this->_fields['estado'] = $city->state();
+
+		return $this;
+	}
+
+	/**
 	 * Change cep field.
 	 *
 	 * @param mixed $cep
