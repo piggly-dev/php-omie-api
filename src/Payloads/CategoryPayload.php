@@ -11,7 +11,7 @@ use Piggly\ApiClient\Payloads\Rules\Required;
 use Piggly\ApiClient\Payloads\Rules\StringRule;
 
 /**
- * Department payload.
+ * Category payload.
  *
  * @package Pgly\Omie\Api
  * @subpackage Pgly\Omie\Api\Payloads
@@ -23,7 +23,7 @@ use Piggly\ApiClient\Payloads\Rules\StringRule;
  * @license MIT
  * @copyright 2022 Piggly Lab <dev@piggly.com.br>
  */
-class DepartmentPayload extends AbstractPayload
+class CategoryPayload extends AbstractPayload
 {
 	/**
 	 * All payload fields.
@@ -34,8 +34,7 @@ class DepartmentPayload extends AbstractPayload
 	protected $_fields = [
 		'codigo' => null,
 		'descricao' => null,
-		'estrutura' => null,
-		'inativo' => null,
+		'natureza' => null,
 	];
 
 	/**
@@ -55,7 +54,7 @@ class DepartmentPayload extends AbstractPayload
 	}
 
 	/**
-	 * Set department code.
+	 * Set category code.
 	 *
 	 * @param mixed $value
 	 * @since 0.1.0
@@ -68,7 +67,7 @@ class DepartmentPayload extends AbstractPayload
 	}
 
 	/**
-	 * Get department code.
+	 * Get category code.
 	 *
 	 * @since 0.1.0
 	 * @return string
@@ -79,7 +78,7 @@ class DepartmentPayload extends AbstractPayload
 	}
 
 	/**
-	 * Set department description.
+	 * Set category description.
 	 *
 	 * @param mixed $value
 	 * @since 0.1.0
@@ -92,7 +91,7 @@ class DepartmentPayload extends AbstractPayload
 	}
 
 	/**
-	 * Get department description.
+	 * Get category description.
 	 *
 	 * @since 0.1.0
 	 * @return string
@@ -103,66 +102,27 @@ class DepartmentPayload extends AbstractPayload
 	}
 
 	/**
-	 * Set department structure.
+	 * Set category objective.
 	 *
 	 * @param mixed $value
 	 * @since 0.1.0
 	 * @return self
 	 */
-	public function changeStructure($value)
+	public function changeObjective($value)
 	{
-		$this->_fields['estrutura'] = \strval($value);
+		$this->_fields['natureza'] = \strval($value);
 		return $this;
 	}
 
 	/**
-	 * Get department structure.
+	 * Get category objective.
 	 *
 	 * @since 0.1.0
 	 * @return string|null
 	 */
-	public function structure(): ?string
+	public function Objective(): ?string
 	{
-		return $this->_get('estrutura');
-	}
-
-	/**
-	 * Set department as enabled.
-	 *
-	 * @param mixed $value
-	 * @since 0.1.0
-	 * @return self
-	 */
-
-	public function enabled()
-	{
-		$this->_fields['inativo'] = 'N';
-		return $this;
-	}
-
-	/**
-	 * Set department as disabled.
-	 *
-	 * @param mixed $value
-	 * @since 0.1.0
-	 * @return self
-	 */
-
-	public function disabled()
-	{
-		$this->_fields['inativo'] = 'S';
-		return $this;
-	}
-
-	/**
-	 * Get department status.
-	 *
-	 * @since 0.1.0
-	 * @return string
-	 */
-	public function isEnabled(): bool
-	{
-		return $this->_get('inativo', 'N') === 'N';
+		return $this->_get('natureza');
 	}
 
 	/**
@@ -178,18 +138,10 @@ class DepartmentPayload extends AbstractPayload
 			throw new InvalidArgumentException('`codigo` and `descricao` fields are required.');
 		}
 
-		$p = new DepartmentPayload($body['codigo'], $body['descricao']);
+		$p = new CategoryPayload($body['codigo'], $body['descricao']);
 
-		if (isset($body['estrutura'])) {
-			$p->changeStructure($body['estrutura']);
-		}
-
-		if (isset($body['inativo'])) {
-			if ($body['inativo'] === 'S') {
-				$p->disabled();
-			} else {
-				$p->enabled();
-			}
+		if (isset($body['natureza'])) {
+			$p->changeObjective($body['natureza']);
 		}
 
 		return $p;
@@ -204,10 +156,9 @@ class DepartmentPayload extends AbstractPayload
 	protected static function schema(): array
 	{
 		return [
-			'codigo' => [new Required([ new StringRule(), new MaxLengthRule(40) ])],
-			'descricao' => [new Required([ new StringRule(), new MaxLengthRule(60) ])],
-			'estrutura' => [new Optional([ new StringRule() ])],
-			'inativo' => [new Optional([ new StringRule(), new AllowedValuesRule(['S', 'N']) ])],
+			'codigo' => [new Required([ new StringRule(), new MaxLengthRule(20) ])],
+			'descricao' => [new Required([ new StringRule(), new MaxLengthRule(50) ])],
+			'natureza' => [new Optional([ new StringRule() ])],
 		];
 	}
 }

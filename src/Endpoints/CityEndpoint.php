@@ -45,7 +45,7 @@ class CityEndpoint extends Endpoint
 			$this->_log('findByExactName.request', 'POST', \json_encode($data));
 
 			list($body, $code) = $this->_request->post(
-				'/geral/cidades',
+				'/geral/cidades/',
 				$data
 			)->call();
 
@@ -91,7 +91,7 @@ class CityEndpoint extends Endpoint
 			$this->_log('findByName.request', 'POST', \json_encode($data));
 
 			list($body, $code) = $this->_request->post(
-				'/geral/cidades',
+				'/geral/cidades/',
 				$data
 			)->call();
 

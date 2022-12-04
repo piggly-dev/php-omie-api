@@ -71,7 +71,7 @@ class ClientEndpoint extends Endpoint
 			$this->_log('create.request', 'POST', \json_encode($data));
 
 			list($body, $code) = $this->_request->post(
-				'/geral/clientes',
+				'/geral/clientes/',
 				$data
 			)->call();
 
@@ -118,7 +118,7 @@ class ClientEndpoint extends Endpoint
 			$this->_log('update.request', 'POST', \json_encode($data));
 
 			list($body, $code) = $this->_request->post(
-				'/geral/clientes',
+				'/geral/clientes/',
 				$data
 			)->call();
 
@@ -162,7 +162,7 @@ class ClientEndpoint extends Endpoint
 			$this->_log('findByDocument.request', 'POST', \json_encode($data));
 
 			list($body, $code) = $this->_request->post(
-				'/geral/clientes',
+				'/geral/clientes/',
 				$data
 			)->call();
 

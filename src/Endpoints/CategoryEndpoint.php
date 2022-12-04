@@ -4,12 +4,12 @@ namespace Pgly\Omie\Api\Endpoints;
 
 use Exception;
 use Monolog\Logger;
-use Pgly\Omie\Api\Payloads\DepartmentPayload;
+use Pgly\Omie\Api\Payloads\CategoryPayload;
 use Pgly\Omie\Api\Utils\Formatter;
 use Piggly\ApiClient\Endpoint;
 
 /**
- * Department endpoint.
+ * Category endpoint.
  *
  * @package Pgly\Omie\Api
  * @subpackage Pgly\Omie\Api\Endpoints
@@ -21,40 +21,39 @@ use Piggly\ApiClient\Endpoint;
  * @license MIT
  * @copyright 2022 Piggly Lab <dev@piggly.com.br>
  */
-class DepartmentEndpoint extends Endpoint
+class CategoryEndpoint extends Endpoint
 {
 	/**
-	 * List all departments.
+	 * List all categories.
 	 *
 	 * @param string $name
 	 * @param int $page
 	 * @param int $records
 	 * @since 0.1.0
-	 * @return array<DepartmentPayload>
+	 * @return array<CategoryPayload>
 	 */
 	public function list(int $page = 1, int $records = 50): array
 	{
 		try {
-			$data = Formatter::requestBody($this->_api->getApp(), 'ListarDepartamentos', [
+			$data = Formatter::requestBody($this->_api->getApp(), 'ListarCategorias', [
 				'pagina' => $page,
 				'registros_por_pagina' => $records,
-				'apenas_importado_api' => 'N'
 			]);
 
 			$this->_log('find.request', 'POST', \json_encode($data));
 
 			list($body, $code) = $this->_request->post(
-				'/geral/departamentos/',
+				'/geral/categorias/',
 				$data
 			)->call();
 
-			if (empty($body['departamentos'])) {
+			if (empty($body['categoria_cadastro'])) {
 				return [];
 			}
 
 			return array_map(function ($city) {
-				return DepartmentPayload::import($city);
-			}, $body['departamentos']);
+				return CategoryPayload::import($city);
+			}, $body['categoria_cadastro']);
 		} catch (Exception $e) {
 			$this->_log('find.error', $e->getCode(), $e->getMessage(), Logger::ERROR);
 			return [];
@@ -75,7 +74,7 @@ class DepartmentEndpoint extends Endpoint
 	{
 		$this->_request->getConfig()->log(
 			$level,
-			'omie.api.v1.departments.'.$operation.' ['.$details.'] -> '.$message
+			'omie.api.v1.categories.'.$operation.' ['.$details.'] -> '.$message
 		);
 	}
 }
