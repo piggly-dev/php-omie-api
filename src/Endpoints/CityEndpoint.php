@@ -4,6 +4,7 @@ namespace Pgly\Omie\Api\Endpoints;
 
 use Exception;
 use Monolog\Logger;
+use Pgly\Omie\Api\Collections\ListOfPayloadsCollection;
 use Pgly\Omie\Api\Payloads\CityPayload;
 use Pgly\Omie\Api\Utils\Formatter;
 use Piggly\ApiClient\Endpoint;
@@ -74,9 +75,9 @@ class CityEndpoint extends Endpoint
 	 * @param int $page
 	 * @param int $records
 	 * @since 0.1.0
-	 * @return array<CityPayload>
+	 * @return ListOfPayloadsCollection|null
 	 */
-	public function findByName(string $name, int $page = 1, int $records = 50): array
+	public function findByName(string $name, int $page = 1, int $records = 50): ?ListOfPayloadsCollection
 	{
 		try {
 			$data = Formatter::requestBody($this->_api->getApp(), 'PesquisarCidades', [
@@ -96,9 +97,15 @@ class CityEndpoint extends Endpoint
 				return [];
 			}
 
-			return array_map(function ($city) {
-				return CityPayload::import($city);
-			}, $body['lista_cidades']);
+			return new ListOfPayloadsCollection(
+				$body['pagina'],
+				$body['total_de_paginas'],
+				$body['registros'],
+				$body['total_de_registros'],
+				array_map(function ($city) {
+					return CityPayload::import($city);
+				}, $body['lista_cidades'])
+			);
 		} catch (Exception $e) {
 			$this->_log('findByName.error', $e->getCode(), $e->getMessage(), Logger::ERROR);
 			return [];

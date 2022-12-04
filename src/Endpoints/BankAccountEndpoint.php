@@ -4,6 +4,7 @@ namespace Pgly\Omie\Api\Endpoints;
 
 use Exception;
 use Monolog\Logger;
+use Pgly\Omie\Api\Collections\ListOfPayloadsCollection;
 use Pgly\Omie\Api\Payloads\BankAccountPayload;
 use Pgly\Omie\Api\Utils\Formatter;
 use Piggly\ApiClient\Endpoint;
@@ -30,9 +31,9 @@ class BankAccountEndpoint extends Endpoint
 	 * @param int $page
 	 * @param int $records
 	 * @since 0.1.0
-	 * @return array<BankAccountPayload>
+	 * @return ListOfPayloadsCollection|null
 	 */
-	public function list(int $page = 1, int $records = 50): array
+	public function list(int $page = 1, int $records = 50): ?ListOfPayloadsCollection
 	{
 		try {
 			$data = Formatter::requestBody($this->_api->getApp(), 'ListarContasCorrentes', [
@@ -48,15 +49,21 @@ class BankAccountEndpoint extends Endpoint
 			)->call();
 
 			if (empty($body['ListarContasCorrentes'])) {
-				return [];
+				return null;
 			}
 
-			return array_map(function ($i) {
-				return BankAccountPayload::import($i);
-			}, $body['ListarContasCorrentes']);
+			return new ListOfPayloadsCollection(
+				$body['pagina'],
+				$body['total_de_paginas'],
+				$body['registros'],
+				$body['total_de_registros'],
+				array_map(function ($i) {
+					return BankAccountPayload::import($i);
+				}, $body['ListarContasCorrentes'])
+			);
 		} catch (Exception $e) {
 			$this->_log('find.error', $e->getCode(), $e->getMessage(), Logger::ERROR);
-			return [];
+			return null;
 		}
 	}
 
