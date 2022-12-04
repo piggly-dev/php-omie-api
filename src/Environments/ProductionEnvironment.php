@@ -2,11 +2,10 @@
 
 namespace Pgly\Omie\Api\Environments;
 
+use Pgly\Omie\Api\Models\ApplicationModel;
 use Piggly\ApiClient\Configuration;
 use Piggly\ApiClient\Environments\AbstractEnvironment;
-use Piggly\ApiClient\Models\ApplicationModel;
 use Piggly\ApiClient\Models\CredentialModel;
-use Piggly\ApiClient\Payloads\AbstractPayload;
 use Piggly\ApiClient\Request;
 use RuntimeException;
 
