@@ -35,7 +35,7 @@ class ServiceEndpoint extends Endpoint
 	public function findByDescription(string $service, int $page = 1, int $records = 50): array
 	{
 		try {
-			$data = Formatter::requestBody($this->_api->getApp(), 'PesquisarCidades', [
+			$data = Formatter::requestBody($this->_api->getApp(), 'ListarCadastroServico', [
 				'nPagina' => $page,
 				'nRegPorPagina' => $records,
 				'cDescricao' => $service
