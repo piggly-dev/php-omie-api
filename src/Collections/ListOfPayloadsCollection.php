@@ -116,6 +116,25 @@ class ListOfPayloadsCollection
 	}
 
 	/**
+	 * Check if is empty.
+	 *
+	 * @since 0.1.0
+	 * @return boolean
+	 */
+	public function isEmpty()
+	{
+		return empty($this->_items);
+	}
+
+	/**
+	 * Check if has next page.
+	 */
+	public function hasNext()
+	{
+		return $this->_page < $this->_totalPages;
+	}
+
+	/**
 	 * Create a list of payloads collection.
 	 *
 	 * @param integer $page
