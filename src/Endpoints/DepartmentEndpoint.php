@@ -53,7 +53,7 @@ class DepartmentEndpoint extends Endpoint
 				return [];
 			}
 
-			return new ListOfPayloadsCollection(
+			return ListOfPayloadsCollection::create(
 				$body['pagina'],
 				$body['total_de_paginas'],
 				$body['registros'],

@@ -70,7 +70,7 @@ class ProductionEnvironment extends AbstractEnvironment
 		$request  = new Request($_client);
 
 		$request->applyHeaders([
-			'Content-Type' => 'application/json; charset=utf-8',
+			'Content-Type' => 'application/json',
 		]);
 
 		return $request;

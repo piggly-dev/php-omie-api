@@ -53,11 +53,11 @@ class ServiceEndpoint extends Endpoint
 				return null;
 			}
 
-			return new ListOfPayloadsCollection(
-				$body['pagina'],
-				$body['total_de_paginas'],
-				$body['registros'],
-				$body['total_de_registros'],
+			return ListOfPayloadsCollection::create(
+				$body['nPagina'],
+				$body['nTotPaginas'],
+				$body['nRegistros'],
+				$body['nTotRegistros'],
 				array_map(function ($s) {
 					return ServicePayload::import($s);
 				}, $body['cadastros'])

@@ -52,7 +52,7 @@ class CategoryEndpoint extends Endpoint
 				return null;
 			}
 
-			return new ListOfPayloadsCollection(
+			return ListOfPayloadsCollection::create(
 				$body['pagina'],
 				$body['total_de_paginas'],
 				$body['registros'],

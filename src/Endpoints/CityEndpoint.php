@@ -53,7 +53,7 @@ class CityEndpoint extends Endpoint
 
 			$name = \strtolower($name);
 
-			foreach ($data['lista_cidades'] as $city) {
+			foreach ($body['lista_cidades'] as $city) {
 				if (\strtolower($city['cNome']) !== $name) {
 					continue;
 				}
@@ -97,7 +97,7 @@ class CityEndpoint extends Endpoint
 				return [];
 			}
 
-			return new ListOfPayloadsCollection(
+			return ListOfPayloadsCollection::create(
 				$body['pagina'],
 				$body['total_de_paginas'],
 				$body['registros'],

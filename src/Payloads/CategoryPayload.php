@@ -120,7 +120,7 @@ class CategoryPayload extends AbstractPayload
 	 * @since 0.1.0
 	 * @return string|null
 	 */
-	public function Objective(): ?string
+	public function objective(): ?string
 	{
 		return $this->_get('natureza');
 	}

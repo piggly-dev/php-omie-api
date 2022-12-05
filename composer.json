@@ -28,6 +28,11 @@
 		"piggly/php-api-client": "1.1.0",
 		"monolog/monolog": "^2.3"
 	},
+	"require-dev": {
+		"php": "^7.3 || ^8.0",
+		"phpunit/phpunit": "^9.5",
+		"vlucas/phpdotenv": "^5.5"
+	},
 	"minimum-stability": "stable",
 	"version": "0.1.0"
 }
